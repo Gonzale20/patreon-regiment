@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Regiment — Patreon Membership</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #040f07;
+  --bg2: #071409;
+  --bg3: #0a1c0c;
+  --gold: #C9A84C;
+  --gold-dim: #8a6e2f;
+  --gold-bright: #e8c46a;
+  --cream: #f0e8d0;
+  --cream-dim: #a89878;
+  --green-accent: #1a3a1e;
+  --green-bright: #2a5a30;
+  --border: rgba(201,168,76,0.25);
+  --border-strong: rgba(201,168,76,0.6);
+  --red: #c0392b;
+  --sergeant: #7ab8e8;
+  --officer: #C9A84C;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: 'Exo 2', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===================== NAV ===================== */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(4,15,7,0.95);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 60px;
+  backdrop-filter: blur(10px);
+}
+
+.nav-brand {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.nav-links { display: flex; gap: 1.5rem; align-items: center; }
+.nav-links a {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--cream-dim);
+  text-decoration: none;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--gold); }
+
+.btn-member-access {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 0.5rem 1.2rem;
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-member-access:hover {
+  background: var(--gold);
+  color: var(--bg);
+}
+
+/* ===================== HERO ===================== */
+#public-view { position: relative; z-index: 1; }
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 8rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 40%, rgba(201,168,76,0.08) 0%, transparent 70%);
+}
+
+.hero-eyebrow {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s forwards 0.2s;
+}
+
+.hero h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 4px;
+  color: var(--cream);
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeUp 0.8s forwards 0.4s;
+}
+
+.hero h1 span { color: var(--gold); }
+
+.hero-sub {
+  font-size: 1.1rem;
+  color: var(--cream-dim);
+  max-width: 600px;
+  margin: 1.5rem auto;
+  line-height: 1.7;
+  font-weight: 300;
+  opacity: 0;
+  animation: fadeUp 0.8s forwards 0.6s;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  opacity: 0;
+  animation: fadeUp 0.8s forwards 0.8s;
+}
+
+.btn-primary {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 0.9rem 2.5rem;
+  background: var(--gold);
+  color: var(--bg);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+}
+.btn-primary:hover { background: var(--gold-bright); transform: translateY(-2px); }
+
+.btn-secondary {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 0.9rem 2.5rem;
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+}
+.btn-secondary:hover { background: rgba(201,168,76,0.1); }
+
+/* ===================== SECTIONS ===================== */
+section { position: relative; z-index: 1; padding: 5rem 2rem; }
+
+.section-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 0.8rem;
+}
+
+.section-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--cream);
+  margin-bottom: 3rem;
+}
+
+.section-title span { color: var(--gold); }
+
+/* gold divider */
+.gold-line {
+  width: 60px;
+  height: 2px;
+  background: var(--gold);
+  margin: 0 auto 3rem;
+}
+
+/* ===================== ANNOUNCEMENT BANNER ===================== */
+.announce-banner {
+  background: linear-gradient(135deg, rgba(201,168,76,0.12), rgba(201,168,76,0.05));
+  border: 1px solid var(--border-strong);
+  border-left: 4px solid var(--gold);
+  padding: 1.5rem 2rem;
+  max-width: 900px;
+  margin: 0 auto 4rem;
+  position: relative;
+}
+
+.announce-banner .tag {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.announce-banner h3 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+.announce-banner p {
+  font-size: 0.9rem;
+  color: var(--cream-dim);
+  line-height: 1.6;
+}
+
+/* ===================== TIER CARDS ===================== */
+.tiers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 2rem;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.tier-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  padding: 2.5rem;
+  position: relative;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.tier-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-strong);
+}
+
+.tier-card.featured {
+  border-color: var(--gold);
+  background: linear-gradient(160deg, rgba(201,168,76,0.06), var(--bg3));
+}
+
+.tier-card.featured::before {
+  content: '★ MOST POPULAR';
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gold);
+  color: var(--bg);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  padding: 0.3rem 1rem;
+}
+
+.tier-rank {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.tier-card.sergeant .tier-rank { color: var(--sergeant); }
+.tier-card.officer .tier-rank { color: var(--officer); }
+
+.tier-name {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+
+.tier-price {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.tier-price span {
+  font-size: 1rem;
+  color: var(--cream-dim);
+  font-weight: 400;
+}
+
+.tier-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 1.5rem 0;
+}
+
+.tier-benefits {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.tier-benefits li {
+  font-size: 0.88rem;
+  color: var(--cream-dim);
+  padding-left: 1.5rem;
+  position: relative;
+  line-height: 1.4;
+}
+
+.tier-benefits li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-size: 0.8rem;
+}
+
+.tier-benefits li.highlight {
+  color: var(--cream);
+  font-weight: 500;
+}
+
+.tier-cta {
+  margin-top: 2rem;
+  display: block;
+  text-align: center;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 0.8rem;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.tier-card.sergeant .tier-cta {
+  border: 1px solid var(--sergeant);
+  color: var(--sergeant);
+}
+.tier-card.sergeant .tier-cta:hover {
+  background: var(--sergeant);
+  color: var(--bg);
+}
+
+.tier-card.officer .tier-cta {
+  background: var(--gold);
+  color: var(--bg);
+  border: 1px solid var(--gold);
+}
+.tier-card.officer .tier-cta:hover {
+  background: var(--gold-bright);
+}
+
+/* ===================== WHY SECTION ===================== */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.why-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--gold);
+  padding: 2rem;
+  text-align: center;
+}
+
+.why-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.why-card h4 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--cream);
+  margin-bottom: 0.5rem;
+}
+
+.why-card p {
+  font-size: 0.85rem;
+  color: var(--cream-dim);
+  line-height: 1.6;
+}
+
+/* ===================== GRANDFATHERING ===================== */
+.grandfather-section {
+  background: linear-gradient(135deg, rgba(26,58,30,0.6), rgba(4,15,7,0.8));
+  border: 1px solid var(--green-bright);
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 3rem;
+  text-align: center;
+}
+
+.grandfather-section .icon { font-size: 2.5rem; margin-bottom: 1rem; }
+
+.grandfather-section h3 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.grandfather-section p {
+  color: var(--cream-dim);
+  line-height: 1.8;
+  font-size: 0.95rem;
+  max-width: 600px;
+  margin: 0 auto 1.5rem;
+}
+
+.grandfather-section .date-badge {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--bg);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  padding: 0.4rem 1.2rem;
+  font-weight: 700;
+}
+
+/* ===================== PASSWORD MODAL ===================== */
+#pw-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(4,15,7,0.97);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#pw-overlay.active { display: flex; }
+
+.pw-box {
+  background: var(--bg3);
+  border: 1px solid var(--border-strong);
+  padding: 3rem;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+  animation: scaleIn 0.3s ease;
+}
+
+.pw-box::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.pw-close {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  background: none;
+  border: none;
+  color: var(--cream-dim);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.pw-close:hover { color: var(--gold); }
+
+.pw-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+
+.pw-box h3 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+.pw-box p {
+  font-size: 0.85rem;
+  color: var(--cream-dim);
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.pw-input {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--cream);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1rem;
+  letter-spacing: 4px;
+  padding: 0.9rem 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  outline: none;
+  transition: border-color 0.2s;
+  margin-bottom: 1rem;
+}
+.pw-input:focus { border-color: var(--gold); }
+.pw-input.error { border-color: var(--red); animation: shake 0.3s ease; }
+
+.pw-error {
+  color: var(--red);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+  display: none;
+}
+.pw-error.show { display: block; }
+
+.pw-submit {
+  width: 100%;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 0.9rem;
+  background: var(--gold);
+  color: var(--bg);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.pw-submit:hover { background: var(--gold-bright); }
+
+/* ===================== MEMBER DASHBOARD ===================== */
+#member-view {
+  display: none;
+  position: relative;
+  z-index: 1;
+  padding-top: 60px;
+}
+
+#member-view.active { display: block; }
+
+.member-header {
+  background: linear-gradient(135deg, rgba(201,168,76,0.08), transparent);
+  border-bottom: 1px solid var(--border);
+  padding: 3rem 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.member-header::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.member-tag {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+
+.member-header h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--cream);
+}
+
+.member-header h1 span { color: var(--gold); }
+
+.member-header p {
+  color: var(--cream-dim);
+  margin-top: 0.8rem;
+  font-size: 0.95rem;
+}
+
+/* member nav tabs */
+.member-tabs {
+  display: flex;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+  padding: 0 2rem;
+  gap: 0;
+  scrollbar-width: none;
+}
+.member-tabs::-webkit-scrollbar { display: none; }
+
+.tab-btn {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 1.1rem 1.5rem;
+  background: none;
+  border: none;
+  color: var(--cream-dim);
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  position: relative;
+  top: 1px;
+}
+
+.tab-btn:hover { color: var(--cream); }
+.tab-btn.active {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+/* tab panels */
+.tab-panel { display: none; padding: 3rem 2rem; max-width: 1100px; margin: 0 auto; }
+.tab-panel.active { display: block; }
+
+/* form cards grid */
+.forms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.form-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  padding: 1.8rem;
+  position: relative;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+
+.form-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--gold);
+}
+
+.form-card.officer-only::before { background: linear-gradient(90deg, var(--gold), #e8a84c); }
+
+.form-badge {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  margin-bottom: 0.8rem;
+  display: inline-block;
+  align-self: flex-start;
+}
+
+.form-badge.all { background: rgba(201,168,76,0.15); color: var(--gold); }
+.form-badge.officer { background: rgba(201,168,76,0.25); color: var(--gold-bright); border: 1px solid var(--gold); }
+
+.form-card h4 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--cream);
+  margin-bottom: 0.5rem;
+}
+
+.form-card p {
+  font-size: 0.83rem;
+  color: var(--cream-dim);
+  line-height: 1.5;
+  flex: 1;
+  margin-bottom: 1.5rem;
+}
+
+.form-link {
+  display: block;
+  text-align: center;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 0.7rem;
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  text-decoration: none;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.form-link:hover { background: var(--gold); color: var(--bg); }
+
+/* channels section */
+.channels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.channel-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  padding: 1.2rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: border-color 0.2s;
+}
+
+.channel-card:hover { border-color: var(--border-strong); }
+
+.channel-hash {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.2rem;
+  color: var(--gold);
+  opacity: 0.6;
+}
+
+.channel-info .name {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  color: var(--cream);
+}
+
+.channel-info .desc {
+  font-size: 0.75rem;
+  color: var(--cream-dim);
+  margin-top: 0.2rem;
+}
+
+.channel-badge {
+  margin-left: auto;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 1px;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--gold-dim);
+  color: var(--gold-dim);
+  text-transform: uppercase;
+}
+
+/* benefits comparison in member view */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.compare-table th {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 2px solid var(--border-strong);
+  color: var(--gold);
+}
+
+.compare-table th:nth-child(2) { color: var(--sergeant); }
+.compare-table th:nth-child(3) { color: var(--officer); }
+
+.compare-table td {
+  padding: 0.8rem 1rem;
+  font-size: 0.85rem;
+  color: var(--cream-dim);
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.compare-table tr:hover td { background: rgba(201,168,76,0.03); }
+
+.check { color: #4caf7a; font-size: 1.1rem; }
+.cross { color: var(--cream-dim); opacity: 0.3; font-size: 1.1rem; }
+
+/* info box */
+.info-box {
+  background: linear-gradient(135deg, rgba(201,168,76,0.07), transparent);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.info-box h4 {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+.info-box p {
+  font-size: 0.85rem;
+  color: var(--cream-dim);
+  line-height: 1.6;
+}
+
+/* logout btn */
+.member-logout {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--cream-dim);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  z-index: 50;
+}
+.member-logout:hover { border-color: var(--red); color: var(--red); }
+
+/* footer */
+footer {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 2rem;
+  text-align: center;
+}
+
+footer p {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  color: var(--cream-dim);
+  opacity: 0.5;
+}
+
+/* ===================== ANIMATIONS ===================== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 600px) {
+  nav { padding: 0 1rem; }
+  .nav-links { display: none; }
+  section { padding: 3rem 1rem; }
+  .tiers-grid { grid-template-columns: 1fr; }
+  .tab-btn { padding: 1rem 1rem; font-size: 0.6rem; }
+  .tab-panel { padding: 2rem 1rem; }
+  .forms-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-brand">⚔ The Regiment</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="leadership.html">Leadership</a>
+    <a href="arcl.html">ARCL</a>
+    <button class="btn-member-access" onclick="openPwModal()">Member Access</button>
+  </div>
+</nav>
+
+<!-- ======================== PUBLIC VIEW ======================== -->
+<div id="public-view">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">⚔ The Regiment — Patreon Program</div>
+    <h1>Support The <span>Regiment</span></h1>
+    <p class="hero-sub">Join an elite tier of members who fuel operations, shape leadership decisions, and unlock exclusive benefits inside the Regiment.</p>
+    <div class="hero-actions">
+      <a href="https://www.patreon.com/c/Regiment1" target="_blank" class="btn-primary">Join on Patreon</a>
+      <button class="btn-secondary" onclick="openPwModal()">Member Access →</button>
+    </div>
+  </div>
+
+  <!-- ANNOUNCEMENT -->
+  <section>
+    <div class="announce-banner">
+      <div class="tag">📢 Important Announcement</div>
+      <h3>Membership Restructure — New Tiers Effective April 28th</h3>
+      <p>We've restructured our Patreon tiers to deliver more value. All existing Sergeant members are automatically grandfathered into Officer benefits at no extra cost. New members can join at updated pricing and tiers. See below for full details.</p>
+    </div>
+  </section>
+
+  <!-- TIER CARDS -->
+  <section>
+    <div class="section-label">// Choose Your Tier</div>
+    <div class="section-title">Membership <span>Tiers</span></div>
+    <div class="gold-line"></div>
+    <div class="tiers-grid">
+
+      <!-- SERGEANT -->
+      <div class="tier-card sergeant">
+        <div class="tier-rank">// Tier I</div>
+        <div class="tier-name">Sergeant</div>
+        <div class="tier-price">$4.99<span>/month</span></div>
+        <div class="tier-divider"></div>
+        <ul class="tier-benefits">
+          <li class="highlight">Patreon-Exclusive Missions</li>
+          <li>50% off All Basic Courses</li>
+          <li>Private server access for exclusive gameplay</li>
+          <li>Static Patreon Profile</li>
+          <li>PDF Certifications for basic course completions</li>
+          <li>Sponsor 1 non-Patreon member per mission/month</li>
+          <li>Front row seat to leadership meetings & decisions</li>
+          <li>Patreon Streamer status — grow your Twitch</li>
+          <li>Participate in Game Master Missions</li>
+          <li>Social Media recognition & display</li>
+          <li>Access to Patreon Podcasts</li>
+          <li>Personalized Squad Bot (if 25% of squad joins)</li>
+        </ul>
+        <a href="https://www.patreon.com/c/Regiment1" target="_blank" class="tier-cta">Join as Sergeant</a>
+      </div>
+
+      <!-- OFFICER -->
+      <div class="tier-card officer featured">
+        <div class="tier-rank">// Tier II — Elite</div>
+        <div class="tier-name">Officer</div>
+        <div class="tier-price">$9.99<span>/month</span></div>
+        <div class="tier-divider"></div>
+        <ul class="tier-benefits">
+          <li class="highlight">Everything in Sergeant, plus:</li>
+          <li class="highlight">Achievement Mural — awards, medals & ribbons</li>
+          <li class="highlight">Video Profile with custom Soundtrack</li>
+          <li>Free Access to All Basic Certifications</li>
+          <li>50% off Advanced Certifications</li>
+          <li class="highlight">Rank Skip — skip one rank in the Regiment system</li>
+          <li class="highlight">3 x 1-on-1 Training Sessions/month with Commander</li>
+          <li>Priority Access to Leadership Channels</li>
+          <li>Personalized Immortal Bot (Officer exclusive)</li>
+          <li>Featured on Regiment Social Media</li>
+          <li>Patreon Podcast Access</li>
+          <li>Exclusive Rewards Registration (ribbons & medals)</li>
+        </ul>
+        <a href="https://www.patreon.com/c/Regiment1" target="_blank" class="tier-cta">Join as Officer</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WHY PATREON -->
+  <section>
+    <div class="section-label">// Why It Matters</div>
+    <div class="section-title">Why <span>Join</span> Patreon?</div>
+    <div class="gold-line"></div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🎖️</div>
+        <h4>Recognition & Legacy</h4>
+        <p>Build a permanent record of your achievements. Achievement Murals, medals, ribbons, and social media features keep your legacy alive in the Regiment.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📈</div>
+        <h4>Accelerated Progression</h4>
+        <p>Skip ranks, access free certifications, and train directly with the Commander. Patreon members move through the Regiment faster with exclusive advancement paths.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🎯</div>
+        <h4>Exclusive Operations</h4>
+        <p>Access Patreon-only missions, Game Master events, and Special Mission Operations that never open to the general membership.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🛡️</div>
+        <h4>Shape the Regiment</h4>
+        <p>Front row seat to leadership meetings. Your voice directly influences decisions on training, events, and Regiment direction.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🎙️</div>
+        <h4>Podcast & Media Access</h4>
+        <p>Participate in Regiment Podcasts, become a Patreon Streamer, and grow your gaming presence through our platform and community.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">⚔️</div>
+        <h4>Keep the Regiment Operational</h4>
+        <p>Your support directly funds servers, tools, events, and the infrastructure that keeps the Regiment running at full capacity.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRANDFATHERING -->
+  <section>
+    <div class="grandfather-section">
+      <div class="icon">🔐</div>
+      <h3>Existing Members — You're Protected</h3>
+      <p>If you're currently a Sergeant-level member at the $4.99/month price point, you will be <strong>automatically upgraded to Officer Membership</strong> at the same price. No action needed. All your current benefits are preserved and you gain everything Officer has to offer.</p>
+      <p>Join before April 28th, 2025 and lock in Officer-level access permanently at the current rate.</p>
+      <div class="date-badge">⏳ Changes Take Effect April 28th</div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section style="text-align:center; padding-bottom: 6rem;">
+    <div class="section-label">// Ready to Commit?</div>
+    <div class="section-title">Join the <span>Elite</span></div>
+    <div class="gold-line"></div>
+    <p style="color:var(--cream-dim); max-width:500px; margin:0 auto 2.5rem; font-size:0.95rem; line-height:1.7;">The Regiment runs on the commitment of its members. Patreon support is what keeps operations funded, training active, and the community growing.</p>
+    <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+      <a href="https://www.patreon.com/c/Regiment1" target="_blank" class="btn-primary">Join on Patreon</a>
+      <button class="btn-secondary" onclick="openPwModal()">Already a Member →</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>© The Regiment — Arma Military Simulation | patreon.com/c/Regiment1</p>
+  </footer>
+
+</div>
+<!-- END PUBLIC VIEW -->
+
+<!-- ======================== PASSWORD MODAL ======================== -->
+<div id="pw-overlay">
+  <div class="pw-box">
+    <button class="pw-close" onclick="closePwModal()">✕</button>
+    <div class="pw-icon">🔐</div>
+    <h3>Member Access</h3>
+    <p>Enter your Patreon member password to access the exclusive member dashboard.</p>
+    <input type="password" class="pw-input" id="pw-input" placeholder="ENTER PASSWORD" onkeydown="if(event.key==='Enter') checkPassword()">
+    <div class="pw-error" id="pw-error">INCORRECT PASSWORD — TRY AGAIN</div>
+    <button class="pw-submit" onclick="checkPassword()">Access Dashboard</button>
+  </div>
+</div>
+
+<!-- ======================== MEMBER DASHBOARD ======================== -->
+<div id="member-view">
+
+  <div class="member-header">
+    <div class="member-tag">// Patreon Member Portal — Restricted Access</div>
+    <h1>Welcome, <span>Operator</span></h1>
+    <p>Your exclusive access to Regiment forms, channels, resources, and member-only content.</p>
+  </div>
+
+  <!-- MEMBER TABS -->
+  <div class="member-tabs">
+    <button class="tab-btn active" onclick="showTab('forms')">Forms & Surveys</button>
+    <button class="tab-btn" onclick="showTab('channels')">Discord Channels</button>
+    <button class="tab-btn" onclick="showTab('benefits')">Your Benefits</button>
+    <button class="tab-btn" onclick="showTab('resources')">Resources</button>
+  </div>
+
+  <!-- TAB: FORMS -->
+  <div class="tab-panel active" id="tab-forms">
+    <div class="info-box">
+      <h4>📋 Patreon Member Forms</h4>
+      <p>All exclusive forms for Patreon members are listed below. Officer-rank forms are marked accordingly. If you are unsure of your rank, DM the Commander (@[CO]WSSIWARLORDI) on Discord.</p>
+    </div>
+    <div class="forms-grid">
+
+      <div class="form-card">
+        <span class="form-badge all">All Members</span>
+        <h4>Profile Creation Survey</h4>
+        <p>Set up your static Patreon profile. Showcase your support and establish your identity within the Regiment community.</p>
+        <a href="https://app.smartsheet.com/b/form/cfb4aa36153747e48e0a285bbd6fdfd8" target="_blank" class="form-link">Open Form →</a>
+      </div>
+
+      <div class="form-card">
+        <span class="form-badge all">All Members</span>
+        <h4>Profile Update Request</h4>
+        <p>Need to update your existing Patreon profile? Submit changes here and the team will update your details.</p>
+        <a href="https://app.smartsheet.com/b/form/7431e9c7b16248ee80dd0aaa71f1171e" target="_blank" class="form-link">Open Form →</a>
+      </div>
+
+      <div class="form-card">
+        <span class="form-badge all">All Members</span>
+        <h4>Schedule 1:1 with Warlord</h4>
+        <p>Book a personal 1-on-1 session with Commander Warlord. Officer members receive 3 sessions per month.</p>
+        <a href="https://app.smartsheet.com/b/form/d9d4cd77446549da8dc94b81a9604d23" target="_blank" class="form-link">Open Form →</a>
+      </div>
+
+      <div class="form-card">
+        <span class="form-badge all">All Members</span>
+        <h4>Podcast GroupCast & 1:1 Request</h4>
+        <p>Request participation in the Regiment Podcast — either a GroupCast session or a personal 1:1 episode with the Commander.</p>
+        <a href="https://app.smartsheet.com/b/form/afc8ac922920434694ba688b4c5e607e" target="_blank" class="form-link">Open Form →</a>
+      </div>
+
+      <div class="form-card">
+        <span class="form-badge all">All Members</span>
+        <h4>Game Master Event Creation</h4>
+        <p>Interested in hosting your own GM Session? Submit your event proposal here and work with Command to bring it to life.</p>
+        <a href="https://app.smartsheet.com/b/form/fec021d89860431891256baf180d2607" target="_blank" class="form-link">Open Form →</a>
+      </div>
+
+      <div class="form-card">
+        <span class="form-badge all">All Members</span>
+        <h4>Member Feedback Survey</h4>
+        <p>Shape the future of the Regiment's Patreon program. Share your satisfaction, what perks matter most, and what you'd like to see added.</p>
+        <a href="https://app.smartsheet.com/b/form/4c316c8cdc794d04a23526a9b04af2c9" target="_blank" class="form-link">Open Form →</a>
+      </div>
+
+      <div class="form-card officer-only">
+        <span class="form-badge officer">⭐ Officer Only</span>
+        <h4>Immortal Bot Creator Survey</h4>
+        <p>Officers can request a personalized bot for their squad channel. Only fill this out if you hold Officer rank and want a custom bot created.</p>
+        <a href="https://app.smartsheet.com/b/form/235e21d307be4052aba9b74244600e5d" target="_blank" class="form-link">Open Form →</a>
+      </div>
+
+      <div class="form-card officer-only">
+        <span class="form-badge officer">⭐ Officer Only</span>
+        <h4>Exclusive Rewards Registration</h4>
+        <p>Participated in an event and want to receive your ribbon or medal on your Achievement Mural? Submit your event details here.</p>
+        <a href="https://app.smartsheet.com/b/form/755de09e97d74034baefdee5c44be039" target="_blank" class="form-link">Open Form →</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TAB: CHANNELS -->
+  <div class="tab-panel" id="tab-channels">
+    <div class="info-box">
+      <h4>🔒 Exclusive Discord Channels</h4>
+      <p>As a Patreon member, you have access to the following restricted Discord channels. These are only visible to verified Patreon members. If you don't see a channel, contact the Commander to verify your Discord role is assigned.</p>
+    </div>
+    <div class="channels-grid">
+      <div class="channel-card">
+        <div class="channel-hash">#</div>
+        <div class="channel-info">
+          <div class="name">support-the-regiment</div>
+          <div class="desc">Support resources and Patreon info</div>
+        </div>
+        <div class="channel-badge">All</div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-hash">#</div>
+        <div class="channel-info">
+          <div class="name">patreon-members</div>
+          <div class="desc">Exclusive member community channel</div>
+        </div>
+        <div class="channel-badge">All</div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-hash">#</div>
+        <div class="channel-info">
+          <div class="name">patreon-podcast</div>
+          <div class="desc">Podcast announcements & scheduling</div>
+        </div>
+        <div class="channel-badge">All</div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-hash">#</div>
+        <div class="channel-info">
+          <div class="name">patreon-forms</div>
+          <div class="desc">Form links and submission updates</div>
+        </div>
+        <div class="channel-badge">All</div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-hash">#</div>
+        <div class="channel-info">
+          <div class="name">hall-of-heroes</div>
+          <div class="desc">Member recognition & achievements</div>
+        </div>
+        <div class="channel-badge">All</div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-hash">#</div>
+        <div class="channel-info">
+          <div class="name">game-master-missions</div>
+          <div class="desc">GM mission planning & events</div>
+        </div>
+        <div class="channel-badge">All</div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-hash">#</div>
+        <div class="channel-info">
+          <div class="name">patreon-streamers</div>
+          <div class="desc">Stream coordination & Twitch growth</div>
+        </div>
+        <div class="channel-badge">All</div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-hash">#</div>
+        <div class="channel-info">
+          <div class="name">the-immortals-chat</div>
+          <div class="desc">Officer-tier exclusive discussion</div>
+        </div>
+        <div class="channel-badge">Officer</div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-hash">🔊</div>
+        <div class="channel-info">
+          <div class="name">Patreon Special Mission Operations</div>
+          <div class="desc">Exclusive voice channel for special ops</div>
+        </div>
+        <div class="channel-badge">Officer</div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-hash">#</div>
+        <div class="channel-info">
+          <div class="name">patreon-membership</div>
+          <div class="desc">Membership tier info & updates</div>
+        </div>
+        <div class="channel-badge">All</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: BENEFITS -->
+  <div class="tab-panel" id="tab-benefits">
+    <div class="info-box">
+      <h4>📊 Your Benefits Breakdown</h4>
+      <p>Full comparison of what each tier includes. Remember — existing Sergeant members are grandfathered into Officer benefits at $4.99/month.</p>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Benefit</th>
+            <th>Sergeant — $4.99</th>
+            <th>Officer — $9.99</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Patreon-Exclusive Missions</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>50% Off Basic Courses</td><td><span class="check">✓</span></td><td><span class="cross">—</span></td></tr>
+          <tr><td>Free Basic Certifications</td><td><span class="cross">—</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>50% Off Advanced Certifications</td><td><span class="cross">—</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>PDF Certifications</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Private Server Access</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Static Patreon Profile</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Video Profile with Soundtrack</td><td><span class="cross">—</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Achievement Mural (Awards, Medals, Ribbons)</td><td><span class="cross">—</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Rank Skip (1 rank)</td><td><span class="cross">—</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>1:1 Sessions with Commander (3/month)</td><td><span class="cross">—</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Sponsor 1 Non-Patreon Member/Month</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Front Row at Leadership Meetings</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Priority Leadership Channel Access</td><td><span class="cross">—</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Patreon Streamer Status (Twitch)</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Game Master Mission Participation</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Social Media Display</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Featured on Social Media</td><td><span class="cross">—</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Patreon Podcast Access</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Immortal Bot (Officer-exclusive)</td><td><span class="cross">—</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Personalized Squad Bot (25% squad threshold)</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Exclusive Rewards Registration (ribbons/medals)</td><td><span class="cross">—</span></td><td><span class="check">✓</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- TAB: RESOURCES -->
+  <div class="tab-panel" id="tab-resources">
+    <div class="info-box">
+      <h4>📁 Member Resources</h4>
+      <p>Key links, contacts, and information for Patreon members. For urgent issues, contact the Commander directly via Discord.</p>
+    </div>
+    <div class="forms-grid">
+
+      <div class="form-card">
+        <span class="form-badge all">Quick Link</span>
+        <h4>Patreon Page</h4>
+        <p>Your Patreon subscription management, billing, and tier information. Update your payment details or tier here.</p>
+        <a href="https://www.patreon.com/c/Regiment1" target="_blank" class="form-link">Visit Patreon →</a>
+      </div>
+
+      <div class="form-card">
+        <span class="form-badge all">Quick Link</span>
+        <h4>Regiment Main Hub</h4>
+        <p>Return to the main Regiment dashboard for training registration, events, ranking system, and community resources.</p>
+        <a href="index.html" class="form-link">Go to Hub →</a>
+      </div>
+
+      <div class="form-card">
+        <span class="form-badge all">Quick Link</span>
+        <h4>ARCL PVP Hub</h4>
+        <p>Access the ARCL competitive league hub — training schedule, roster, upcoming PVP event, and match VODs.</p>
+        <a href="arcl.html" class="form-link">Go to ARCL →</a>
+      </div>
+
+      <div class="form-card">
+        <span class="form-badge all">Contact</span>
+        <h4>Commander — Warlord</h4>
+        <p>Direct questions about your membership, benefits, rank, or any Patreon-related issues to the Commander on Discord.</p>
+        <a href="https://discord.gg/" target="_blank" class="form-link">Open Discord →</a>
+      </div>
+
+    </div>
+
+    <div style="margin-top:2.5rem;">
+      <div class="announce-banner">
+        <div class="tag">🔐 Password Info</div>
+        <h3>Keeping Your Access Secure</h3>
+        <p>Do not share the Patreon member password with non-members. This dashboard is exclusive to active Patreon supporters. If you believe the password has been compromised, notify the Commander immediately via Discord. The password is updated periodically — watch <strong>#patreon-members</strong> for announcements.</p>
+      </div>
+    </div>
+  </div>
+
+  <button class="member-logout" onclick="logout()">✕ Exit Dashboard</button>
+
+</div>
+<!-- END MEMBER VIEW -->
+
+<script>
+  const CORRECT_PW = 'REGIMENT2026'; // Change this password directly in the HTML
+
+  function openPwModal() {
+    document.getElementById('pw-overlay').classList.add('active');
+    setTimeout(() => document.getElementById('pw-input').focus(), 100);
+  }
+
+  function closePwModal() {
+    document.getElementById('pw-overlay').classList.remove('active');
+    document.getElementById('pw-input').value = '';
+    document.getElementById('pw-error').classList.remove('show');
+    document.getElementById('pw-input').classList.remove('error');
+  }
+
+  function checkPassword() {
+    const input = document.getElementById('pw-input').value.toUpperCase().trim();
+    if (input === CORRECT_PW) {
+      closePwModal();
+      document.getElementById('public-view').style.display = 'none';
+      document.getElementById('member-view').classList.add('active');
+      window.scrollTo(0, 0);
+    } else {
+      const inputEl = document.getElementById('pw-input');
+      const errorEl = document.getElementById('pw-error');
+      inputEl.classList.add('error');
+      errorEl.classList.add('show');
+      inputEl.value = '';
+      setTimeout(() => inputEl.classList.remove('error'), 500);
+    }
+  }
+
+  function logout() {
+    document.getElementById('member-view').classList.remove('active');
+    document.getElementById('public-view').style.display = 'block';
+    window.scrollTo(0, 0);
+  }
+
+  function showTab(tabName) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tabName).classList.add('active');
+    event.target.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
